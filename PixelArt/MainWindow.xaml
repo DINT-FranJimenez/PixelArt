@@ -15,12 +15,27 @@
             <EventSetter Event="Click" Handler="Numero_Cuadriculas"/>
         </Style>
 
+        <Style TargetType="{x:Type Button}" x:Key="rellenaColor">
+            <Setter Property="Width" Value="100" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Margin" Value="10" />
+        </Style>
+
         <Style TargetType="{x:Type RadioButton}">
             <Setter Property="GroupName" Value="groupNameColors"/>
             <Setter Property="Margin" Value="5" />
-            <EventSetter Event="Checked" Handler="RadioButton_Cambia_Color_Cheked"/>
-        </Style>
+            <EventSetter Event="Click" Handler="Click_RadioButtonCambiaColor_Chek"/>
         
+        </Style>
+
+
+        <Style TargetType="{x:Type Grid}" x:Key="BackGroundColor">
+            <EventSetter Event="MouseEnter" Handler="CambiaColor_MouseEnter"/>
+            <EventSetter Event="MouseDown" Handler="CambiaColor_MouseDown"/>
+
+        </Style>
+
+
     </Window.Resources>
     <DockPanel LastChildFill="True">
 
@@ -28,36 +43,45 @@
                   Header="Tamaño" VerticalAlignment="Top"
                   Margin="10">
             <StackPanel  >
-                <Button Content="Pequeño" x:Name="pequeno" Tag ="20"/>
-                <Button Content="Mediano" x:Name="mediano" Tag ="30"/>
-                <Button Content="Grande" x:Name="grande" Tag ="40"/>
+                <Button Content="Pequeño" x:Name="pequeno" Tag ="5"/>
+                <Button Content="Mediano" x:Name="mediano" Tag ="10"/>
+                <Button Content="Grande" x:Name="grande" Tag ="20"/>
             </StackPanel>
         </GroupBox>
 
-        <GroupBox DockPanel.Dock="Right"
+        <StackPanel DockPanel.Dock="Right">
+            <GroupBox 
                   Header="Colores" VerticalAlignment="Top"
                   Margin="10" Height="280" >
-            <StackPanel>
                 
-                <RadioButton Content="Negro" x:Name="radioButtonNegro" 
-                             IsChecked="True" Tag="Black"/>
-                <RadioButton Content="Blanco" x:Name="radioButtonBlanco" Tag="White"/>
-                <RadioButton Content="Rojo" x:Name="radioButtonRojo" Tag="Red"/>
-                <RadioButton Content="Verde" x:Name="radioButtonVerde" Tag="Green"/>
-                <RadioButton Content="Azul" x:Name="radioButtonAzul" Tag="Blue"/>
-                <RadioButton Content="Amarillo" x:Name="radioButtonAmarillo" Tag="Yellow"/>
-                <RadioButton Content="Naranja" x:Name="radioButtonNaranja" Tag="Orange"/>
-                <RadioButton Content="Rosa" x:Name="radioButtonRosa" Tag="Pink"/>
-                <RadioButton Content="Personalizado" x:Name="radioButtonPersonalizar"/>
+                <StackPanel>
 
-                <Border  BorderBrush="Black" BorderThickness="1">
-                    <TextBox x:Name="textBoxColor" />
-                </Border>
+                    <RadioButton Content="Negro" x:Name="radioButtonNegro" 
+                     IsChecked="True" Tag="Black"/>
+                    <RadioButton Content="Blanco" x:Name="radioButtonBlanco" Tag="White"/>
+                    <RadioButton Content="Rojo" x:Name="radioButtonRojo" Tag="Red"/>
+                    <RadioButton Content="Verde" x:Name="radioButtonVerde" Tag="Green"/>
+                    <RadioButton Content="Azul" x:Name="radioButtonAzul" Tag="Blue"/>
+                    <RadioButton Content="Amarillo" x:Name="radioButtonAmarillo" Tag="Yellow"/>
+                    <RadioButton Content="Naranja" x:Name="radioButtonNaranja" Tag="Orange"/>
+                    <RadioButton Content="Rosa" x:Name="radioButtonRosa" Tag="Pink"/>
+                    <RadioButton Content="Personalizado" x:Name="radioButtonPersonalizar"/>
 
+                    <Border  BorderBrush="Black" BorderThickness="1">
+                        <TextBox x:Name="textBoxColor" />
+                    </Border>
 
-            </StackPanel>
-        </GroupBox>
+                </StackPanel>
 
+                
+            </GroupBox>
+
+            <Button Content="Rellena" Style="{StaticResource rellenaColor}" Click="RellenaTodoUnColor_Click"/>
+            
+        </StackPanel>
+        
+
+        
         <Border  BorderBrush="Black" BorderThickness="2" Margin="10">
 
             <UniformGrid x:Name="pixeles">
