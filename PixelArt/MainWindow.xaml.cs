@@ -37,6 +37,8 @@ namespace PixelArt
 
             pixeles.Children.Clear();
 
+            
+
             for (int i = 0; i < numeroCuadros; i++)
             {
                 for (int j = 0; j < numeroCuadros; j++) 
@@ -59,9 +61,25 @@ namespace PixelArt
 
         private void Numero_Cuadriculas(object sender, RoutedEventArgs e)
         {
-             
-            cuadros = Convert.ToInt16((sender as Button).Tag);
-            Cuadricula_Pequena(cuadros);
+
+            if (CompruebaCuadriculaColor())
+            {
+                MessageBoxResult result = MessageBox.Show("Ya tienes algo pintado dentro,  ¿seguro de continuar?",
+                                                         "Confirmación", MessageBoxButton.YesNo,
+                                                         MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    cuadros = Convert.ToInt16((sender as Button).Tag);
+                    Cuadricula_Pequena(cuadros);
+                }
+            }
+            else 
+            {
+                cuadros = Convert.ToInt16((sender as Button).Tag);
+                Cuadricula_Pequena(cuadros);
+            }
+           
 
         }
 
@@ -111,32 +129,93 @@ namespace PixelArt
 
         private void RellenaTodoUnColor_Click(object sender, RoutedEventArgs e)
         {
-
-
-            SolidColorBrush solidColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(backgroundBorder));
-
-            pixeles.Children.Clear();
-
-            for (int i = 0; i < cuadros; i++)
+            if (CompruebaCuadriculaColor())
             {
-                for (int j = 0; j < cuadros; j++)
+                MessageBoxResult result = MessageBox.Show("Ya tienes algo pintado dentro,  ¿seguro de continuar?",
+                                                          "Confirmación", MessageBoxButton.YesNo,
+                                                          MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
                 {
-                    Border bd = new Border();
-                    bd.BorderThickness = new Thickness(1);
-                    bd.BorderBrush = Brushes.Gray;
-                    Grid g = new Grid();
-                    g.Style = (Style)FindResource("BackGroundColor");
-                    g.Background = solidColorBrush;
-                    bd.Child = g;
+                    SolidColorBrush solidColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(backgroundBorder));
+
+                    pixeles.Children.Clear();
+
+                    for (int i = 0; i < cuadros; i++)
+                    {
+                        for (int j = 0; j < cuadros; j++)
+                        {
+                            Border bd = new Border();
+                            bd.BorderThickness = new Thickness(1);
+                            bd.BorderBrush = Brushes.Gray;
+                            Grid g = new Grid();
+                            g.Style = (Style)FindResource("BackGroundColor");
+                            g.Background = solidColorBrush;
+                            bd.Child = g;
 
 
 
-                    pixeles.Children.Add(bd);
+                            pixeles.Children.Add(bd);
 
-                    
+
+                        }
+
+                    }
                 }
 
             }
+            else
+            {
+                SolidColorBrush solidColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(backgroundBorder));
+
+                pixeles.Children.Clear();
+
+                for (int i = 0; i < cuadros; i++)
+                {
+                    for (int j = 0; j < cuadros; j++)
+                    {
+                        Border bd = new Border();
+                        bd.BorderThickness = new Thickness(1);
+                        bd.BorderBrush = Brushes.Gray;
+                        Grid g = new Grid();
+                        g.Style = (Style)FindResource("BackGroundColor");
+                        g.Background = solidColorBrush;
+                        bd.Child = g;
+
+
+
+                        pixeles.Children.Add(bd);
+
+
+                    }
+
+                }
+            }
+
+            
+        }
+
+        private Boolean CompruebaCuadriculaColor() {
+
+            bool coloreado = false;
+
+
+            foreach (Border border in pixeles.Children)
+            {
+                if (border.Child is Grid grid)
+                {
+                    if (grid.Background != Brushes.White) 
+                    {
+                        coloreado = true;
+                        break;
+                    }
+                        
+
+                }
+            }
+
+
+            return coloreado;
         }
 
        
