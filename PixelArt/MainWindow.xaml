@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PixelArt"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Pixel Art" Height="450" Width="800" Icon="/32 (1).ico">
 
     <Window.Resources>
         <Style TargetType="{x:Type Button}">
